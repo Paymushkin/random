@@ -20,14 +20,12 @@ body {
     max-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .menu-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1003;
+    position: relative;
     width: 50px;
     height: 50px;
     background-color: #1FB53A;
@@ -38,14 +36,15 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 0;
+    z-index: 1003;
+    flex-shrink: 0;
 }
 
 .menu-toggle:hover {
     background-color: #1acc47;
-    transform: scale(1.05);
 }
 
 .menu-toggle span {
@@ -86,19 +85,19 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    right: -400px;
+    left: -400px;
     width: 400px;
     height: 100vh;
     background-color: #0a1463;
-    border-left: 3px solid #1FB53A;
+    border-right: 3px solid #1FB53A;
     z-index: 1002;
-    transition: right 0.3s ease;
+    transition: left 0.3s ease;
     overflow-y: auto;
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar.open {
-    right: 0;
+    left: 0;
 }
 
 .sidebar-header {
@@ -152,13 +151,17 @@ body {
     margin: 0 auto;
     width: 100%;
     padding: 0 20px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 header {
     position: relative;
     padding: 20px 0;
     flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -196,28 +199,11 @@ main {
 
 .results-container {
     flex: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
     min-height: 0;
     overflow: hidden;
-}
-
-@media (max-width: 968px) {
-    .results-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        right: -100%;
-    }
-    
-    .main-action .primary-btn {
-        min-width: auto;
-        width: 100%;
-    }
 }
 
 .results-panel {
@@ -391,17 +377,18 @@ input[type="checkbox"] {
 .results-panel h3 {
     font-family: 'Bebas Neue Cyrillic', sans-serif;
     color: #1FB53A;
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
     letter-spacing: 1px;
     margin-top: 0;
+    flex-shrink: 0;
 }
 
 .winner-item {
     background-color: rgba(31, 181, 58, 0.15);
     border-left: 4px solid #1FB53A;
-    padding: 20px 25px;
-    margin-bottom: 15px;
+    padding: 15px 20px;
+    margin-bottom: 12px;
     border-radius: 8px;
     font-size: 1.5rem;
     font-weight: 700;
@@ -459,9 +446,9 @@ input[type="checkbox"] {
         background-color: rgba(31, 181, 58, 0.15);
     }
     50% {
-        transform: scale(1.1);
+        transform: scale(1.05);
         background-color: rgba(31, 181, 58, 0.4);
-        box-shadow: 0 0 30px rgba(31, 181, 58, 0.8);
+        box-shadow: 0 0 20px rgba(31, 181, 58, 0.8);
     }
     100% {
         transform: scale(1);
@@ -474,6 +461,7 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-x: hidden;
     overflow-y: auto;
     min-height: 0;
 }
@@ -564,4 +552,197 @@ footer {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #1acc47;
+}
+
+/* Media Queries */
+
+@media (max-width: 968px) {
+    .results-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .logo {
+        max-width: 150px;
+    }
+    
+    .results-panel h2,
+    .results-panel h3 {
+        font-size: 1.3rem;
+    }
+    
+    .winner-item {
+        font-size: 1.1rem;
+        padding: 12px 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        left: -100%;
+        right: auto;
+        border-right: none;
+        border-left: 3px solid #1FB53A;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 15px;
+        background-color: rgba(9, 19, 88, 0.98);
+        z-index: 100;
+        border-bottom: 2px solid rgba(31, 181, 58, 0.4);
+    }
+    
+    .logo {
+        max-width: 100px;
+    }
+    
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .menu-toggle span {
+        width: 20px;
+        height: 2px;
+    }
+    
+    .menu-toggle span:nth-child(1) {
+        transform: translateY(-6px);
+    }
+    
+    .menu-toggle span:nth-child(3) {
+        transform: translateY(6px);
+    }
+    
+    .container {
+        padding: 70px 10px 50px 10px;
+    }
+    
+    .main-action .primary-btn {
+        min-width: auto;
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
+    
+    .results-panel {
+        padding: 15px;
+    }
+    
+    .results-panel h2,
+    .results-panel h3 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+    
+    .winner-item {
+        font-size: 0.9rem;
+        padding: 10px 12px;
+        margin-bottom: 8px;
+    }
+    
+    .history-item {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+    
+    .history-item .timestamp {
+        font-size: 0.75rem;
+    }
+    
+    .winner-line {
+        padding: 3px 0;
+    }
+    
+    main {
+        gap: 12px;
+    }
+    
+    .results-container {
+        gap: 12px;
+    }
+    
+    footer {
+        padding: 8px 10px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        max-width: 80px;
+    }
+    
+    .menu-toggle {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .menu-toggle span {
+        width: 18px;
+        height: 2px;
+    }
+    
+    .container {
+        padding: 65px 8px 45px 8px;
+    }
+    
+    .results-container {
+        gap: 8px;
+    }
+    
+    .results-panel {
+        padding: 10px;
+    }
+    
+    .results-panel h2,
+    .results-panel h3 {
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+    }
+    
+    .winner-item {
+        font-size: 0.8rem;
+        padding: 8px 10px;
+        margin-bottom: 6px;
+    }
+    
+    .history-item {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+    
+    .history-item .timestamp {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+    }
+    
+    .winner-line {
+        padding: 2px 0;
+    }
+    
+    .main-action .primary-btn {
+        font-size: 0.95rem;
+        padding: 10px 18px;
+    }
+    
+    footer {
+        font-size: 0.65rem;
+        padding: 6px;
+    }
+    
+    main {
+        gap: 8px;
+    }
 }
