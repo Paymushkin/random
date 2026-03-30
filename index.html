@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Рандомайзер - Central Warehouses</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <h2>Настройки</h2>
+      </div>
+
+      <div class="sidebar-content">
+        <div class="mode-selector">
+          <button type="button" id="namesMode" class="mode-btn active">Выбор имен</button>
+          <button type="button" id="numbersMode" class="mode-btn">Выбор чисел</button>
+        </div>
+
+        <div id="namesInput" class="input-section">
+          <label for="namesList"
+            >Список участников (каждое имя с новой строки):</label
+          >
+          <textarea
+            id="namesList"
+            rows="12"
+            placeholder="Иван Иванов&#10;Мария Петрова&#10;Алексей Сидоров&#10;..."
+          ></textarea>
+        </div>
+
+        <div id="numbersInput" class="input-section hidden">
+          <div class="number-range">
+            <div class="input-group">
+              <label for="minNumber">От:</label>
+              <input type="number" id="minNumber" value="1" />
+            </div>
+            <div class="input-group">
+              <label for="maxNumber">До:</label>
+              <input type="number" id="maxNumber" value="100" />
+            </div>
+          </div>
+        </div>
+
+        <div class="settings">
+          <div class="input-group">
+            <label for="winnersCount">Количество победителей:</label>
+            <input type="number" id="winnersCount" value="1" min="1" />
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="excludeWinners" checked />
+            <label for="excludeWinners"
+              >Исключать уже выбранных победителей</label
+            >
+          </div>
+        </div>
+
+        <div class="sidebar-actions">
+          <button type="button" id="resetBtn" class="secondary-btn">Сбросить историю</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="container">
+      <header>
+        <img src="logo.svg" alt="Central Warehouses Uzbekistan" class="logo" />
+      </header>
+
+      <button
+        type="button"
+        id="menuToggle"
+        class="menu-toggle"
+        aria-label="Открыть настройки"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <main>
+        <div class="main-action">
+          <button type="button" id="selectBtn" class="primary-btn">
+            Выбрать победителей
+          </button>
+        </div>
+
+        <div class="results-container">
+          <div class="results-panel current-winners-panel">
+            <h2>Победители:</h2>
+            <div id="winnersDisplay" class="winners-list"></div>
+          </div>
+
+          <div class="results-panel winners-history-panel">
+            <h3>Все победители:</h3>
+            <div id="historyDisplay" class="history-list"></div>
+          </div>
+        </div>
+      </main>
+
+      <footer>
+        <p>Central Warehouses Uzbekistan &copy; 2026</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
